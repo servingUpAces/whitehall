@@ -260,10 +260,6 @@ class Organisation < ActiveRecord::Base
     where("organisation_type_id = ?" , OrganisationType.ministerial_department)
   end
 
-  def self.non_ministerial_departments
-    where("organisation_type_id != ?" , OrganisationType.ministerial_department)
-  end
-
   def self.with_published_editions(type=nil)
     if type
       klass = type.to_s.classify.constantize

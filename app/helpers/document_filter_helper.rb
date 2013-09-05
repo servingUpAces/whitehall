@@ -14,18 +14,13 @@ module DocumentFilterHelper
 
   def organisation_filter_options(selected_organisations = [])
     grouped_organisations = Rails.cache.fetch("organisation_filter_options/grouped_organisations/#{I18n.locale}", expires_in: 30.minutes) do
+      ministerial, other = Organisation.with_published_editions
+                  .with_translations
+                  .ordered_by_name_ignoring_prefix
+                  .partition { |o| o.ministerial_department? }
       {
-        'Ministerial departments' =>  Organisation.with_published_editions
-                                      .with_translations
-                                      .ministerial_departments
-                                      .ordered_by_name_ignoring_prefix
-                                      .map { |o| [o.name, o.slug] },
-
-        'Other departments & public bodies' =>  Organisation.with_published_editions
-                                                .with_translations
-                                                .non_ministerial_departments
-                                                .ordered_by_name_ignoring_prefix
-                                                .map { |o| [o.name, o.slug] }
+        'Ministerial departments' => ministerial.map { |o| [o.name, o.slug] },
+        'Other departments & public bodies' =>  other.map { |o| [o.name, o.slug] }
       }
     end
     selected_values = selected_organisations.any? ? selected_organisations.map(&:slug) : ["all"]
