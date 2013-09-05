@@ -1,5 +1,6 @@
 class OrganisationType < ActiveRecord::Base
   validates :name, presence: true, uniqueness: true
+  validates :analytics_prefix, presence: true
 
   LISTING_ORDER = [
     "Executive office",
@@ -13,6 +14,7 @@ class OrganisationType < ActiveRecord::Base
     "Independent monitoring body",
     "Ad-hoc advisory group",
     "Sub-organisation",
+    "Devolved administration",
     "Other"
   ]
   BOTTOM_OF_LISTING_ORDER = 99

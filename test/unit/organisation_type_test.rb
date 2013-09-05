@@ -25,6 +25,7 @@ class OrganisationTypeTest < ActiveSupport::TestCase
       "Independent monitoring body",
       "Ad-hoc advisory group",
       "Sub-organisation",
+      "Devolved administration",
       "Other"
     ]
     type_names.shuffle.each { |t| create(:organisation_type, name: t) }
