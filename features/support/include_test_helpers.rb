@@ -1,0 +1,1 @@
+require Rails.root.join("test", "support", "virus_scan_helpers")

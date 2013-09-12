@@ -14,8 +14,8 @@ require 'slimmer/test'
 require 'factories'
 require 'webmock/test_unit'
 require 'whitehall/not_quite_as_fake_search'
-require 'whitehall/virus_scan_helpers'
 
+# Require all files in test/support
 Dir[Rails.root.join('test/support/*.rb')].each { |f| require f }
 
 Mocha::Configuration.prevent(:stubbing_non_existent_method)
