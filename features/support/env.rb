@@ -54,3 +54,10 @@ Cucumber::Rails::Database.javascript_strategy = :truncation
 Before do
   create(:world_location, name: "United Kingdom", iso2: "GB")
 end
+
+After do |scenario|
+  if scenario.failed?
+    save_page
+    screenshot("capybara/capybara-#{Time.new.strftime("%Y%m%d%H%M%S")}#{rand(10**10)}")
+  end
+end
