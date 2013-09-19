@@ -20,7 +20,9 @@ module ImportHelpers
       select document_type, from: 'Type'
       attach_file 'CSV File', path
       select organisation.name, from: 'Default organisation'
+      puts "#{ENV['TEST_ENV_NUMBER']}-#{Process.pid} SAVING: GDS::SSO.test_user: #{GDS::SSO.test_user.id} #{GDS::SSO.test_user.permissions.inspect}"
       click_button 'Save'
+      puts "#{ENV['TEST_ENV_NUMBER']}-#{Process.pid} SAVED:  GDS::SSO.test_user: #{GDS::SSO.test_user.id} #{GDS::SSO.test_user.permissions.inspect}"
       click_button 'Run'
 
       run_last_import

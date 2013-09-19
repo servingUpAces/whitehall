@@ -15,6 +15,8 @@ class Admin::BaseController < ApplicationController
   end
 
   def require_import_permission!
+    puts "#{ENV['TEST_ENV_NUMBER']}-#{Process.pid} CONTROLLER: current_user:       #{current_user.id} #{current_user.permissions.inspect}"
+    puts("#{ENV['TEST_ENV_NUMBER']}-#{Process.pid} CONTROLLER: GDS::SSO.test_user: #{GDS::SSO.test_user.id} #{GDS::SSO.test_user.permissions.inspect}") if GDS::SSO.test_user.present?
     authorise_user!(User::Permissions::IMPORT)
   end
 

@@ -6,3 +6,12 @@ GDS::SSO.config do |config|
   config.basic_auth_user = 'api'
   config.basic_auth_password = 'defined_on_rollout_not'
 end
+
+module GDS
+  module SSO
+    def self.test_user=(usr)
+      puts "SETTING test_user! - #{Process.pid}/#{Thread.current.object_id}"
+      @@test_user = usr
+    end
+  end
+end
