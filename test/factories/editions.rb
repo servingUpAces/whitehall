@@ -59,9 +59,6 @@ FactoryGirl.define do
     }
     trait(:archived) {
       state "archived"
-      after :create do |edition|
-        edition.refresh_index_if_required
-      end
     }
     trait(:featured) { featured true }
     trait(:scheduled) {
