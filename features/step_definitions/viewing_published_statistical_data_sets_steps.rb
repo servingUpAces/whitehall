@@ -6,7 +6,7 @@ Given /^a published publication that's part of the "([^"]*)" document series$/ d
   draft = create(:draft_publication)
   document_series = DocumentSeries.find_by_name!(document_series_name)
   document_series.groups.first.documents << draft.document
-  draft.publish_as(create(:gds_editor), force: true)
+  draft.perform_force_publish
 end
 
 Given /^a published statistical data set "([^"]*)" that's part of the "([^"]*)" document series$/ do |data_set_title, document_series_name|

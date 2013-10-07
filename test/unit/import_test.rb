@@ -271,7 +271,7 @@ class ImportTest < ActiveSupport::TestCase
     edition = Consultation.find_by_title('title')
     editor = create(:departmental_editor)
     edition.convert_to_draft!
-    edition.publish_as(editor, force: true)
+    edition.perform_force_publish
     new_draft = edition.create_draft(editor)
     refute import.imported_editions.include?(new_draft)
   end
@@ -284,15 +284,10 @@ class ImportTest < ActiveSupport::TestCase
     edition.convert_to_draft!
     assert import.force_publishable_editions.include?(edition)
 
-    writer = create(:policy_writer)
-    edition.publish_as(writer, force: false)
-    assert import.force_publishable_editions.include?(edition)
-
-    editor = create(:departmental_editor)
-    edition.publish_as(editor, force: true)
+    edition.perform_force_publish
     refute import.force_publishable_editions.include?(edition)
 
-    new_draft = edition.create_draft(editor)
+    new_draft = edition.create_draft(create(:departmental_editor))
     refute import.force_publishable_editions.include?(edition)
   end
 
@@ -312,11 +307,9 @@ class ImportTest < ActiveSupport::TestCase
     refute import.force_publishable?
     import.imported_editions.map { |e| e.convert_to_draft! }
     assert import.force_publishable?
-    writer = create(:policy_writer)
-    import.imported_editions.map { |e| e.publish_as(writer, force: false) }
+    import.imported_editions.map { |e| e.perform_publish }
     assert import.force_publishable?
-    editor = create(:departmental_editor)
-    import.imported_editions.map { |e| e.publish_as(editor, force: true) }
+    import.imported_editions.map { |e| e.perform_force_publish }
     refute import.force_publishable?
   end
 
