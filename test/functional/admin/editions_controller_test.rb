@@ -54,7 +54,7 @@ class Admin::EditionsControllerTest < ActionController::TestCase
     Edition::AuditTrail.whodunnit = editor
     policy.first_published_at = Time.zone.now
     policy.major_change_published_at = Time.zone.now
-    policy.perform_force_publish
+    force_publish(policy)
     draft_policy = policy.reload.create_draft(editor)
 
     get :diff, id: draft_policy, audit_trail_entry_id: draft_policy.document_version_trail.first.version.item_id
