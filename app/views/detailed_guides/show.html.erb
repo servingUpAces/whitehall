@@ -3,6 +3,31 @@
 
 <%= api_link_tag api_detailed_guide_url(@document.document) %>
 
+<header class="publication-header" id="contents">
+  <div class="inner-block floated-children">
+    <div class="headings">
+      <%= content_tag(:p, @document.display_type, class: 'document-type') %>
+        <%= render partial: "title", locals: {
+          topics: @topics,
+          document: @document
+        }%>
+      <p><%= published_or_updated(@document).titlecase %> <%= absolute_date(@document.public_timestamp, class: 'published-at') %></p>
+    </div>
+    <% if govspeak_headers(@document.body).any? %>
+      <h2>Contents</h2>
+      <nav class="detailed_guide_parts" role="navigation">
+        <ol id="document_sections">
+          <% govspeak_headers(@document.body).each do |header| %>
+            <li>
+              <%= link_to header.text, "##{header.id}" %>
+            </li>
+          <% end %>
+        </ol>
+      </nav>
+    <% end %>
+  </div>
+</header>
+
 <div class="document_page <%= @document.type.downcase %><% @document.mainstream_categories.each do |cat| %> category-<%= cat.slug %><% end %>">
   <div class="block-1">
     <div class="inner-block">
