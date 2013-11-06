@@ -11,16 +11,6 @@
     </div>
   <% end %>
 
-  <% unless @edition.document.document_sources.empty? %>
-    <p>Document sources:</p>
-    <ul>
-      <% @edition.document.document_sources.each do |document_source| %>
-        <li><%= link_to truncate(document_source.url, length: 90), document_source.url, title: document_source.url, target: '_new' %></li>
-      <% end %>
-    </ul>
-  <% end %>
-
-
   <%= form_for [:admin, @edition], as: :edition, builder: Admin::EditionsHelper::EditionFormBuilder do |form| %>
 
     <%= form.text_field :title %>
