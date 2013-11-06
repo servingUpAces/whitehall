@@ -177,7 +177,7 @@
     </h2>
     <ul>
       <% @edition.document.document_sources.map(&:url).each do |url| %>
-        <li><%= url %></li>
+        <li><%= link_to truncate(document_source.url, length: 90), document_source.url, title: document_source.url, target: '_new' %></li>
       <% end %>
     </ul>
   </section>
