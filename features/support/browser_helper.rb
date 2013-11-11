@@ -5,6 +5,9 @@ module BrowserHelper
   def visit_link_href(link_text)
     assert page.find('a', text: link_text), "Couldn't find a link \"#{link_text}\"."
     visit(find('a', text: link_text)[:href])
+  rescue
+    puts page.body
+    raise
   end
 end
 
